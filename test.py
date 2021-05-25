@@ -198,9 +198,8 @@ def test_plugin_on_text_post(plugin_version):
         "Please find it in the other place.",
     )
     check_or_fail(
-        check_thank_found(),
-        failure_message="Couldn't find find <p> element with class 'thank'." +
-        " Looks like plugin not working, or not installed")
+        "Thanks for reading!" in driver.page_source,
+        failure_message="Couldn't find find text thank thanks for reading.")
     # Uncomment this lines to checkversion
     # check_or_fail(
     #     check_version_found(plugin_version),
