@@ -116,7 +116,11 @@ def add_media_to_post(path):
 
 def check_thank_found():
     try:
-        driver.find_element_by_css_selector("p[class='thank']")
+        if "Thanks for reading!" in driver.find_element_by_css_selector(
+                "p[class='thank']").text:
+            return True
+        else:
+            return False
     except:
         return False
     return True
