@@ -32,7 +32,7 @@ To run tests you need to set following environment variables when running your D
   * For example `-e WP_PLUGIN_VERSION=v0.10.0`
 
 ---
-##Non-Headless Test
+## Non-Headless Test
 Run the test with a GUI by using:
 
 ```bash
@@ -42,7 +42,7 @@ Don't forget to ```export``` or hardcode the variables in your .py file.
 
 
 ---
-##Headless Test
+## Headless Test
 
 Run 
 ```
