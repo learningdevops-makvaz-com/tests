@@ -10,12 +10,11 @@ from selenium.webdriver.common.by import By
 import os
 import logging
 
-main_url = "http://localhost" 
-plugin_version = "v0.10.0" 
+main_url = "http://localhost"
+plugin_version = "v0.10.0"
 formatter = logging.Formatter(
     '%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logging.basicConfig(level=logging.INFO)
-
 
 
 def set_chrome_options() -> None:
@@ -25,7 +24,7 @@ def set_chrome_options() -> None:
     chrome_options = Options()
     # Comment out next line if you want to run tests with an opening browser.
     # GUI it's useless if you run this on containers.
-    #chrome_options.add_argument("--headless")
+    # chrome_options.add_argument("--headless")
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
     chrome_prefs = {}
@@ -63,7 +62,7 @@ def add_media(path):
     driver.get(main_url + "/wp-admin/media-new.php?browser-uploader")
     media = driver.find_element_by_name("async-upload")
     media.clear()
-    media.send_keys(path)
+    media.send_keys(os.path.abspath(path))
     driver.find_element_by_name("html-upload").click()
 
 
@@ -180,13 +179,13 @@ def test_plugin_on_text_post(plugin_version):
     add_post(
         title="Simple text post",
         body="This is multiline\nText that could take a lot of space.\n" +
-        "This version shouldn't be mentioned " + plugin_version + "\n" +
-        "Please find it in the other place.",
+             "This version shouldn't be mentioned " + plugin_version + "\n" +
+             "Please find it in the other place.",
     )
     check_or_fail(
         check_thank_found(),
         failure_message="Couldn't find find <p> element with class 'thank'." +
-        " Looks like plugin not working, or not installed")
+                        " Looks like plugin not working, or not installed")
     # Uncomment this lines to checkversion
     # check_or_fail(
     #     check_version_found(plugin_version),
@@ -210,16 +209,16 @@ def test_post_with_media():
             EC.visibility_of_element_located(
                 (By.CSS_SELECTOR, "img[class^='wp-image-']")))
         for check in [{
-                'condition':
+            'condition':
                 img.get_attribute("naturalWidth") != '0',
-                'success_message':
+            'success_message':
                 media_file + " displayed properly",
-                'failure_message':
+            'failure_message':
                 media_file + " wasn't displayed properly"
         }, {
-                'condition': media_file in img.get_attribute("src"),
-                'success_message': "Proper picture displayed",
-                'failure_message': "Wrong image displayed"
+            'condition': media_file in img.get_attribute("src"),
+            'success_message': "Proper picture displayed",
+            'failure_message': "Wrong image displayed"
         }]:
             check_or_fail(check['condition'],
                           success_message=check['success_message'],

@@ -81,7 +81,7 @@ def add_media(path):
     driver.get(main_url + "/wp-admin/media-new.php?browser-uploader")
     media = driver.find_element_by_name("async-upload")
     media.clear()
-    media.send_keys(path)
+    media.send_keys(os.path.abspath(path))
     driver.find_element_by_name("html-upload").click()
 
 
