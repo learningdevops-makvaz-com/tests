@@ -43,10 +43,10 @@ So your browser wouln't be opened. It's needed to run it in container.
 
 After you apply changes from previous paragraph you should build docker container:
 ```bash
-docker built -t wp-testing .
+docker build -t wp-testing .
 ```
 
-Next time you need to run docker container with provided variables. For example in testing of wordpress that was setup in VM:
+Next time you need to run docker container with provided variables. For example:
 ```bash
-docker run --network=host --rm -it -e WP_URL='http://192.168.50.2' -e WP_PLUGIN_VERSION='v0.10.0' wp-testing
+docker run --network=host --rm -it -e WP_URL='http://localhost' -e WP_PLUGIN_VERSION='v0.10.0' wp-testing
 ```
