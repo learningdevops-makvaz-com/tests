@@ -10,30 +10,12 @@ from selenium.webdriver.common.by import By
 import os
 import logging
 
-main_url = os.environ['WP_URL']
-plugin_version = os.environ['WP_PLUGIN_VERSION'] 
+main_url = "http://localhost" 
+plugin_version = "v0.10.0" 
 formatter = logging.Formatter(
     '%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logging.basicConfig(level=logging.INFO)
 
-
-def test_environment_variables():
-    """
-    * Make sure to set environment variable 'WP_URL' to your wordpress URL.
-        For example, `export WP_URL='http://192.168.50.2'`
-    * Make sure to set environment variable 'WP_PLUGIN_VERSION' to
-        thank-after-post plugin that would be used.
-        For example, `export WP_PLUGIN_VERSION='v0.10.0'`
-    """
-    logging.info("Starting environment variables check ...")
-    for var in ['WP_URL', 'WP_PLUGIN_VERSION']:
-        check_or_fail('WP_URL' in os.environ,
-                      success_message=var + "=" + os.environ[var],
-                      failure_message=var + " not set")
-    global main_url
-    global plugin_version
-    main_url = os.environ['WP_URL']
-    plugin_version = os.environ['WP_PLUGIN_VERSION']
 
 
 def set_chrome_options() -> None:
@@ -43,7 +25,7 @@ def set_chrome_options() -> None:
     chrome_options = Options()
     # Comment out next line if you want to run tests without opening browser.
     # It's useful if you run it in container.
-    chrome_options.add_argument("--headless")
+    #chrome_options.add_argument("--headless")
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
     chrome_prefs = {}
@@ -97,10 +79,12 @@ def publish_post():
     ).click()
 
 
-def add_media_to_post(path):
+def add_media_to_post(_path):
     """
     Searchs for media in 'Media Library' and adds it to current post
     """
+    ############################
+    path="teapot.jpg"
     driver.find_element_by_css_selector(
         ".components-placeholder__fieldset > .components-button").click()
     driver.find_element_by_id("menu-item-browse").click()
@@ -214,7 +198,8 @@ def test_plugin_on_text_post(plugin_version):
 
 
 def test_post_with_media():
-    media_file = '/app/teapot.jpg'
+    media_file = './teapot.jpg'
+    media_file_name = 'teapot.jpg'
     logging.info("Starting test. Creating text post with media ...")
     if not media_found(media_file):
         add_media(media_file)
@@ -236,7 +221,7 @@ def test_post_with_media():
                 'failure_message':
                 media_file + " wasn't displayed properly"
         }, {
-                'condition': media_file in img.get_attribute("src"),
+                'condition': media_file_name in img.get_attribute("src"),
                 'success_message': "Proper picture displayed",
                 'failure_message': "Wrong image displayed"
         }]:
@@ -248,7 +233,6 @@ def test_post_with_media():
 driver = webdriver.Chrome(options=set_chrome_options())
 driver.accept_untrusted_certs = True
 driver.implicitly_wait(10)
-test_environment_variables()
 test_login()
 test_plugin_on_text_post(plugin_version)
 test_post_with_media()
