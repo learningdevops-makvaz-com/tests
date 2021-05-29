@@ -71,4 +71,4 @@ And run the container with the required ENV variables. For example:
 docker run --network=host --rm -it -e WP_URL='http://localhost' -e WP_PLUGIN_VERSION='v0.10.0' wp-testing
 ```
 
-### DON'T FORGET TO ADD HTTP:// PREFIX. SELENIUM WILL THROW AN EXCEPTION WITHOUT IT.
+### DON'T FORGET TO ADD HTTP:// PREFIX ON "WP_URL" VARIABLE... SELENIUM WILL THROW AN EXCEPTION WITHOUT IT.
