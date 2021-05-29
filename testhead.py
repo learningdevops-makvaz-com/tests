@@ -23,8 +23,8 @@ def set_chrome_options() -> None:
     Sets chrome options for Selenium.
     """
     chrome_options = Options()
-    # Comment out next line if you want to run tests without opening browser.
-    # It's useful if you run it in container.
+    # Comment out next line if you want to run tests with an opening browser.
+    # GUI it's useless if you run this on containers.
     #chrome_options.add_argument("--headless")
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
@@ -83,14 +83,11 @@ def add_media_to_post(path):
     """
     Searchs for media in 'Media Library' and adds it to current post
     """
-    ############################
-    #path="teapot.jpg"
     driver.find_element_by_css_selector(
         ".components-placeholder__fieldset > .components-button").click()
     driver.find_element_by_id("menu-item-browse").click()
     search_media(path)
     time.sleep(2)
-    #This CSS SELECTOR DOESN'T WORK!!! Fix it
     driver.find_element_by_css_selector(
         ".attachment-preview.js--select-attachment.type-image.subtype-jpeg.landscape"
     ).click()
@@ -199,7 +196,6 @@ def test_plugin_on_text_post(plugin_version):
 
 def test_post_with_media():
     media_file = 'teapot.jpg'
-    media_file_name = 'teapot.jpg'
     logging.info("Starting test. Creating text post with media ...")
     if not media_found(media_file):
         add_media(media_file)
