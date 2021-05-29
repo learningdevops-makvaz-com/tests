@@ -1,6 +1,8 @@
 FROM selenium/standalone-chrome
 
-COPY . /app
+WORKDIR /app
+
+COPY . .
 
 RUN sudo apt update && sudo apt-get -y install python3-pip && pip3 install selenium
 

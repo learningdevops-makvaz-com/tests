@@ -79,12 +79,12 @@ def publish_post():
     ).click()
 
 
-def add_media_to_post(_path):
+def add_media_to_post(path):
     """
     Searchs for media in 'Media Library' and adds it to current post
     """
     ############################
-    path="teapot.jpg"
+    #path="teapot.jpg"
     driver.find_element_by_css_selector(
         ".components-placeholder__fieldset > .components-button").click()
     driver.find_element_by_id("menu-item-browse").click()
@@ -198,7 +198,7 @@ def test_plugin_on_text_post(plugin_version):
 
 
 def test_post_with_media():
-    media_file = './teapot.jpg'
+    media_file = 'teapot.jpg'
     media_file_name = 'teapot.jpg'
     logging.info("Starting test. Creating text post with media ...")
     if not media_found(media_file):
@@ -221,7 +221,7 @@ def test_post_with_media():
                 'failure_message':
                 media_file + " wasn't displayed properly"
         }, {
-                'condition': media_file_name in img.get_attribute("src"),
+                'condition': media_file in img.get_attribute("src"),
                 'success_message': "Proper picture displayed",
                 'failure_message': "Wrong image displayed"
         }]:

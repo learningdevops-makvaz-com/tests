@@ -41,8 +41,8 @@ def set_chrome_options() -> None:
     Sets chrome options for Selenium.
     """
     chrome_options = Options()
-    # Comment out next line if you want to run tests without opening browser.
-    # It's useful if you run it in container.
+    # Comment out next line if you want to run tests with a opening browser.
+    # GUI is useless when running containers.
     chrome_options.add_argument("--headless")
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
@@ -214,7 +214,7 @@ def test_plugin_on_text_post(plugin_version):
 
 
 def test_post_with_media():
-    media_file = '/app/teapot.jpg'
+    media_file = 'teapot.jpg'
     logging.info("Starting test. Creating text post with media ...")
     if not media_found(media_file):
         add_media(media_file)
