@@ -14,7 +14,7 @@ In order to run the Selenium e2e test, you need to have the next dependencies in
 * `selenium` package for python3.
     * ```pip3 install selenium```
     
-###The Dockerfile in this repo takes care of all those dependencies.
+### The Dockerfile in this repo takes care of all those dependencies.
 
 
 ---
