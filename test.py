@@ -168,10 +168,14 @@ def check_or_fail(condition,
 
 
 def check_version_found(plugin_version):
-    # This function should check that version in <p> element with class
-    # 'version' is equal to plugin version you provided with variable.
-    # You may check out one of other functions as example.
-    return False
+    try:
+        if plugin_version in driver.find_element_by_css_selector(
+                "p[class='version']").text:
+            return True
+        else:
+            return False
+    except:
+        return False
 
 
 def test_login():
@@ -207,10 +211,10 @@ def test_plugin_on_text_post(plugin_version):
         failure_message="Couldn't find find <p> element with class 'thank'." +
         " Looks like plugin not working, or not installed")
     # Uncomment this lines to checkversion
-    # check_or_fail(
-    #     check_version_found(plugin_version),
-    #     failure_message="Couldn't find find <p> element with class 'version'."
-    #     + " Looks like plugin not working, or not installed")
+    check_or_fail(
+        check_version_found(plugin_version),
+        failure_message="Couldn't find find <p> element with class 'version'."
+        + " Looks like plugin not working, or not installed")
 
 
 def test_post_with_media():
