@@ -149,7 +149,7 @@ def check_or_fail(condition,
 
 def check_version_found(plugin_version):
     try:
-        if plugin_version in driver.find_element_by_css_selector(
+        if plugin_version == driver.find_element_by_css_selector(
                 "p[class='version']").text:
             return True
         else:
